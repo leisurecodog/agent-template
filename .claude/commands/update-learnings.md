@@ -1,0 +1,1 @@
+Review the work from this session. Identify new learnings — patterns, mistakes, domain discoveries, or solutions worth remembering. Update tasks/learnings.md with concise entries in the appropriate sections. Include today's date with each new entry.

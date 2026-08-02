@@ -1,0 +1,13 @@
+# 備份與中間產物
+.claude/backups/
+.claude/hooks/.lint-missing-state
+.claude/settings.local.json
+.claude/agent-feats/clones/
+
+# Python
+__pycache__/
+*.pyc
+.ruff_cache/
+
+# macOS
+.DS_Store

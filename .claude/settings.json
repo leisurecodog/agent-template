@@ -1,0 +1,53 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/claude-session-start.sh\"",
+            "timeout": 10,
+            "statusMessage": "Session context..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/claude-guard.sh\"",
+            "timeout": 10,
+            "statusMessage": "Guarding..."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/claude-guard.sh\"",
+            "timeout": 10,
+            "statusMessage": "Guarding..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/claude-format-lint.sh\"",
+            "timeout": 30,
+            "statusMessage": "Formatting & linting..."
+          }
+        ]
+      }
+    ]
+  }
+}
