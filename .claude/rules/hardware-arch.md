@@ -39,11 +39,13 @@ partition 哪些資料」定清楚：
    「仅 master、不做錯誤回復」、「不含 power」）。
 2. **Overview** — 2–3 句這個 model 提供什麼 transaction 服務、用在 golden ref／BFM／stub 哪一途，
    放系統哪個位置。附**行為層 block diagram**。
-2.6 **設計原因（Why／Rationale）** — 為什麼是 functional model、行為取捨、已知限制。
-2.5 **Block Diagram（內部結構）** — model 內部 sub-block 分解、主要模組如何連接。
-2.7 **時序圖（Sequence Diagram）** — 關鍵交易 initiator↔model 走查（LT/AT），用 `sequenceDiagram`。
-3. **Flow／Decision Tree** — 「收到交易 → 條件分流 → 回什麼」的流程圖（`flowchart`／decision tree）。
+2.1 **設計原因（Why／Rationale）** — 為什麼是 functional model、行為取捨、已知限制。
+3. **Block Diagram（內部結構）** — model 內部 sub-block 分解、主要模組如何連接。
+3.1 **Flow／Decision Tree** — 「收到交易 → 條件分流 → 回什麼」的流程圖（`flowchart`／decision tree）。
    **對完全不懂的讀者這張最重要**，比偽碼親民，先給它看這張。
+3.2 **時序圖（Sequence Diagram）** — 關鍵交易 initiator↔model 走查（LT/AT），用 `sequenceDiagram`。
+3.3 **FSM（optional）** — 若 model 有明顯狀態機才附 `stateDiagram-v2`；純行為、無 FSM 的
+   model 可省略此節。
 4. **Interface** — 描述這個 model 代表的**硬體介面與交易介面**（**兩層都要**）：
    - **I/O 資料介面**：外部 I/O、資料路徑接口——描述 model 模擬的硬體介面（名稱、方向、
      資料型別/寬度、clock 域），讓讀者知道 model 對應哪個硬體介面、如何接 testbench。用表格。
@@ -57,12 +59,13 @@ partition 哪些資料」定清楚：
    結果，讓讀者可直接照做、照驗。
 7. **Functional Data Model** — 定義 transaction/data 型別與欄位、model 的 functional state。
 8. **Behavioral Semantics** — **functional model 主體**：對每個 incoming transaction，model 做
-   規則、狀態如何變、outgoing transaction 如何。用條列或偽碼寫，**不寫 RTL**；可附
-   `stateDiagram-v2`（若 FSM 明顯）。
+   規則、狀態如何變、outgoing transaction 如何。用條列或偽碼寫，**不寫 RTL**。
 9. **Timing Model（適用時）** — 近似時序語意：latency、`delay`、AT phase 序列。pure-functional
    則明寫「不建模時間」。
 10. **Concurrency／同步** — thread 拒醒同步、event、mutex、queue。
 11. **Assumptions／Deviations** — model vs 真硬體簡化/假設/誤用後果，務實列出。
+12. **Limitation** — model 目前具體做不到什麼、未涵蓋的能力（與 11 不同：11 講「為什麼
+   簡化」，12 講「具體限制」）。
 
 ## 寫作紀律
 
@@ -97,4 +100,6 @@ partition 哪些資料」定清楚：
 - 提及 timing 是「近似」還是「不建模時間」，沒有含糊。
 - Concurrency 段說明同步機制（無並行則明說「單執行緒順序」）。
 - Assumptions／Deviations 段​列出 model 與真硬件的差異與簡化，**不空白**。
+- 若 model 有明顯狀態機，FSM 段（3.3）已填；無 FSM 則可省略，不算缺項。
+- Limitation 段（12）非空，且與 Assumptions／Deviations 內容不重複。
 - 文件符合「functional behavioral model、非 RTL」的界線。
