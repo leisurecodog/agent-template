@@ -48,6 +48,19 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/claude-self-learn.sh\"",
+            "timeout": 120,
+            "statusMessage": "Self-learning...",
+            "async": true
+          }
+        ]
+      }
     ]
   }
 }
