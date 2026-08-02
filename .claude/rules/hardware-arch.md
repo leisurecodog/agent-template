@@ -29,34 +29,40 @@ partition 哪些資料」定清楚：
 - State：model 內部的 functional state（buffers、計數、模式、context）——不是 RTL register，
   是有語意資料。
 
-## 文件結構（照此 section 順序）
+## 文件結構（照此 section 順序，讀者導向）
 
-1. **Scope** — 一句話：這是什麼、涵蓋哪些交易類型／行為、明確排除什麼（ex.「僅 master、不做
-   錯誤回復」、「不含 power」）。
+> 讀者通常是 **designer（owner）** 與**完全不懂該 block 的人**。section 順序＝閱讀順序：
+> 先讓不懂的人看這 model 能做什麼、長怎樣、怎麼用，再給 designer 行為細節。
+> 圖（block／sequence／flow）對非技術讀者是必要的，不要只靠偽碼。
+
+1. **Scope** — 一句話：這是什麼/model、涵蓋哪些交易類型／行為、明確排除什麼（例如
+   「仅 master、不做錯誤回復」、「不含 power」）。
 2. **Overview** — 2–3 句這個 model 提供什麼 transaction 服務、用在 golden ref／BFM／stub 哪一途，
-   放系統哪個位置。附**行為層級 block diagram**。
-3. **Functional Data Model** — 定義所有 transaction/data 型別與欄位、model 的 functional state
-   結構（見上）。**此段優先寫**，行為皆由它推導。
-4. **Interface** — 描述這個 model 代表的硬體介面（**兩層都要**，缺一不算完整）：
-   - **I/O 資料介面**：外部 I/O、資料路徑接口——即使是 functional model，也需描述它模擬的
-     硬體介面長相（名稱、方向、資料型別/寬度、clock 域），讓讀者知道 model 對應哪個硬體介面、
-     如何接進 testbench。用表格，不用寫 signal 腳本細節。
+   放系統哪個位置。附**行為層 block diagram**。
+2.5 **Block Diagram（內部結構）** — model 內部 sub-block 分解、主要模組如何連接。
+2.6 **設計原因（Why／Rationale）** — 為什麼是 functional model、行為取捨、已知限制。
+2.7 **時序圖（Sequence Diagram）** — 關鍵交易 initiator↔model 走查（LT/AT），用 `sequenceDiagram`。
+3. **Flow／Decision Tree** — 「收到交易 → 條件分流 → 回什麼」的流程圖（`flowchart`／decision tree）。
+   **對完全不懂的讀者這張最重要**，比偽碼親民，先給它看這張。
+4. **Interface** — 描述這個 model 代表的**硬體介面與交易介面**（**兩層都要**）：
+   - **I/O 資料介面**：外部 I/O、資料路徑接口——描述 model 模擬的硬體介面（名稱、方向、
+     資料型別/寬度、clock 域），讓讀者知道 model 對應哪個硬體介面、如何接 testbench。用表格。
    - **TLM 交易介面**：`b_transport`（LT）／`nb_transport_fw/bw`（AT）、ports／sockets、
      `peq with cb and phase`／`tlm_mm_interface`（payload pooling）用法。寫「介面接受/發出哪些
      transaction、回傳什麼」。
-5. **Behavioral Semantics** — **functional model 的主體**：對每個 incoming transaction，
-   model 做規則、狀態如何變、outgoing transaction 長怎樣。用條列或偽碼（pseudo-code）寫，
-   不寫 RTL。
-   - 可選以 FSM 表述（`stateDiagram-v2`）——但有寫偽碼行為描述即達標。
-6. **Register Map** — **software 透過 bus 存取的 register 建模**：offset、field、bit、R/W、
-    access side-effect。（註：functional model 常需 model 真硬體的 register，供 software 驅動
-    並與真硬體比對。）沒 register 就打「—」。
-7. **Timing Model（適用時）** — functional model 的近似時序語意：每筆 transaction 的近似
-   latency、`delay` 參數、AT phase 序列（`BEGIN_/END_`）。若為 pure-functional 不帶時間，
-   明寫「不建模時間」。
-8. **Concurrency / 同步** — thread 如何喚醒與同步、event、mutex、queue 的並行行為。
-9. **Assumptions / Deviations** — functional model vs 真硬體可能存在的簡化、假設、偏差，與
-   誤用後果。務實列出，不隱藏。
+5. **Register Map** — **software 透過 bus 存取的 register 建模**：offset、field、bit、R/W、
+   access side-effect。（functional model 常需 model 真硬體的 register 供 software 驅動並比對。）
+   沒 register 就填「—」。
+6. **Config／Setting Example and Result** — 怎麼設定 model（register 寫入／參數）＋設完的預期
+   結果，讓讀者可直接照做、照驗。
+7. **Functional Data Model** — 定義 transaction/data 型別與欄位、model 的 functional state。
+8. **Behavioral Semantics** — **functional model 主體**：對每個 incoming transaction，model 做
+   規則、狀態如何變、outgoing transaction 如何。用條列或偽碼寫，**不寫 RTL**；可附
+   `stateDiagram-v2`（若 FSM 明顯）。
+9. **Timing Model（適用時）** — 近似時序語意：latency、`delay`、AT phase 序列。pure-functional
+   則明寫「不建模時間」。
+10. **Concurrency／同步** — thread 拒醒同步、event、mutex、queue。
+11. **Assumptions／Deviations** — model vs 真硬體簡化/假設/誤用後果，務實列出。
 
 ## 寫作紀律
 
@@ -81,6 +87,9 @@ partition 哪些資料」定清楚：
 ## 驗收（寫完自檢，缺一不交）
 
 - 已答定位、寫進 Scope。
+- **對完全不懂的讀者也能看懂**：有 Block Diagram、Flow／Decision Tree、時序圖、Config/Result　
+  （不要只有偽碼）。這些圖對「不懂該 block 的人」是必要，不是可有可無。
+- 展現「設計原因」段（Why／Rationale）——為什麼 model 這樣行為。
 - Functional Data Model 段定義了 transaction 型別與 functional state（不是 signal port list）。
 - Interface 段**兩層都有**：I/O 資料介面（方向/型別/clock 域）＋TLM 交易介面（LT/AT/socket）。
 - Behavioral Semantics 段對每個 transaction 定義「輸入→狀態變化→輸出」，至少偽碼或清楚條列。

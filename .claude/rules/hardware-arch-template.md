@@ -81,6 +81,29 @@ sequenceDiagram
 - AT 用 `peq_with_cb_and_phase`、payload pooling（`tlm_mm_interface`）(如用)
 - 介面接受/發出哪些 transaction、回傳什麼：**此為行為合約**
 
+## 5.5 Flow / Decision Tree（行為流程圖）
+
+> 對所有讀者最親民的「一圖看懂」：收到交易 → 依條件分流 → 回什麼。**完全不懂的人先看這張，
+> designer 對照 Behavior 段。** 用 `flowchart`（有條件分支）或 `decision tree`（純決策）。
+
+```mermaid
+flowchart TD
+  A[收到 transaction] --> B{op 是?}
+  B -- WRITE --> C{addr 越界?}
+  C -- 否 --> D[mem[word]=data]
+  D --> Z[回 TLM_OK_RESPONSE]
+  C -- 是 --> E[不改狀態]
+  E --> Y[回 TLM_ADDRESS_ERROR_RESPONSE]
+  B -- READ --> F{addr 越界?}
+  F -- 否 --> G[回 data = mem[word]]
+  G --> Z
+  F -- 是 --> E
+  Y --> H[結束]
+  Z --> H
+```
+
+（無明顯分支則一段**線性流程**即可：這裡就是要讓非技術讀者一眼看懂 model 行為。）
+
 ## 6. Register Map（software 存取的 register 建模；無則拼「—」）
 
 | Field | Offset | R/W | 存取副作用（行為） | Reset | 說明 |
@@ -220,6 +243,21 @@ sequenceDiagram
 **TLM socket：**
 - 單一 target socket，LT；接受 WRITE/READ。
 - 回傳 `TLM_OK_RESPONSE`／越界 `TLM_ADDRESS_ERROR_RESPONSE`。
+
+## 5.5 Flow（決策樹，給非技術讀者）
+```mermaid
+flowchart TD
+  A[收到 transaction] --> B{op 是?}
+  B -- WRITE --> C{addr < 4*31 ?}
+  C -- 是 --> D[mem[word]=data]
+  D --> Z[回 TLM_OK_RESPONSE]
+  C -- 否 --> E[不改狀態]
+  E --> Y[回 ADDRESS_ERROR]
+  B -- READ --> F{addr < 4*31 ?}
+  F -- 是 --> G[回 data=mem[word]]
+  G --> Z
+  F -- 否 --> E
+```
 
 ## 6. Register Map
 | register | Offset | R/W | Access 副效用 | Reset | 說明 |
