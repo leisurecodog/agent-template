@@ -1,5 +1,5 @@
 Consolidate learnings across both targets:
-- Repo learnings: open the active repo's `tasks/learnings.md`.
+- Repo learnings: open the active repo's `tasks/lessons.md`.
 - Personal learnings: review `~/.claude/projects/-Users-fenganxie/memory/` (all lesson files + `MEMORY.md`).
 
 Open each and review all entries. Do the following:

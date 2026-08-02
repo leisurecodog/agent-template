@@ -9,9 +9,9 @@ Claude Code 的專案起始模板：一套精簡、領域中立的工程紀律 h
 - `.claude/agent-docs/` — 判斷力 rubric、模型調度、程式規範、派工模板、prompt 設計原則、制度維護協議（需要時才 Read）
 - `.claude/rules/` — 路徑限定的語言規則（`python.md`、`c++.md`，讀到對應檔案才載入）
 - `.claude/hooks/` + `.claude/settings.json` — 自動 format／lint／secrets/push guard（工具沒裝就靜默跳過）
-- `.claude/commands/` — `update-learnings`、`consolidation-learnings`
+- `.claude/commands/` — `update-lessons`、`consolidation-lessons`
 - `.claude/agent-feats/` — skill 來源 repo 的同步配方（`sources.md` + `sync_repos.sh`，見下）
-- `tasks/` — 跨 session 狀態：`learnings.md`（另可加 `todo.md`、`progress.md`）
+- `tasks/` — 跨 session 狀態：`lessons.md`（另可加 `todo.md`、`progress.md`）
 - `docs/plugins.md` — 推薦 plugin 清單
 
 ## Skills：從 clones 挑選與推薦
@@ -47,4 +47,4 @@ Skill 本體**不進模板**（全域已載入，複製會漂移）。skill 來�
 1. `git clone` 或複製本目錄為新專案骨架。
 2. 依專案調整 `CLAUDE.md`（刪多餘規則、加專案特有路由）。
 3. 確認 hooks 工具的依賴（ruff、shellcheck、clang-format、cppcheck）已安裝；缺工具時 hook 靜默跳過並提示。
-4. 新 session 開始照 `CLAUDE.md` 的規則運作，教訓寫進 `tasks/learnings.md`。
+4. 新 session 開始照 `CLAUDE.md` 的規則運作，教訓寫進 `tasks/lessons.md`。

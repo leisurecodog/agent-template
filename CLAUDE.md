@@ -34,8 +34,8 @@
    判準見 judgment-rubrics.md R2。
 3. **主對話保持乾淨**：大量讀檔、掃 repo、網路研究、批次改檔一律派 subagent，
    主對話只收結論。門檻見 model-dispatch.md（小事仍自己做，不要為 30 秒的事開 agent）。
-4. **教訓回寫**：被糾正或踩坑後，repo 相關教訓寫進 `tasks/learnings.md`（格式見
-   `.claude/agent-docs/templates/learnings-template.md`），個人教訓寫進你自己的記憶機制。
+4. **教訓回寫**：被糾正或踩坑後，repo 相關教訓寫進 `tasks/lessons.md`（格式見
+   `.claude/agent-docs/templates/lessons-template.md`），個人教訓寫進你自己的記憶機制。
 
 ## 動手邊界
 

@@ -9,7 +9,7 @@
 ### 可以自行改（不必問使用者）
 - **事實修正**：檔名、路徑、工具名、model 名稱失效時，實查後更新為正確值。
   改之前必須實際驗證新值存在（`which`、`ls`、實際呼叫一次）。
-- **新增教訓**到 `tasks/learnings.md`（見第 3 節）。
+- **新增教訓**到 `tasks/lessons.md`（見第 3 節）。
 - **修錯字、修失效連結**。
 
 ### 動之前必須先問使用者
@@ -36,11 +36,11 @@
 被使用者糾正、或踩坑後發現可重用的模式時，先判斷教訓屬於哪一層：
 
 **repo 相關教訓**（build／測試指令、專案 API、該 repo 特有的坑）：
-- 位置：本 repo 的 `tasks/learnings.md`（不存在就建立）。
+- 位置：本 repo 的 `tasks/lessons.md`（不存在就建立）。
 - 格式：標題 `# Project Learnings`，下分五個 section——Patterns That Work、
   Mistakes to Avoid、Domain Knowledge、Open Questions、Consolidated Principles；
   每條一行 `- [YYYY-MM-DD] 描述`，依教訓性質歸到對應 section。完整樣板見
-  `.claude/agent-docs/templates/learnings-template.md`。
+  `.claude/agent-docs/templates/lessons-template.md`。
 
 **個人教訓**（使用者偏好、環境非顯性事實、跨專案模式）：
 - 位置：使用者自己的記憶機制（你的全域 memory 目錄，session 系統提示中會標示）。
@@ -52,13 +52,13 @@
 改用某替代」）、重複踩過的坑。
 **什麼不值得寫**：repo 裡查得到的、只對本次對話有意義的、git history 已記錄的。
 
-## 4. State 三件套（todo.md + learnings.md + progress.md）
+## 4. State 三件套（todo.md + lessons.md + progress.md）
 
 State = 「下一個 session 要接續什麼」的記錄。分散在兩層：
 
 **repo base（本 repo 的 `tasks/` 目錄，三件套）：**
 - `todo.md`：進行中的事項與下一步。
-- `learnings.md`：該 repo 的教訓（見第 3 節「repo 相關教訓」）。
+- `lessons.md`：該 repo 的教訓（見第 3 節「repo 相關教訓」）。
 - `progress.md`：跨 session 的開發進度——目前在哪個階段、下一步、驗收條件。
 - 判準：**有跨 session 開發需求**的 repo 才需要三件套；無此需求的 repo 不建，
   避免每 repo 都背一套（違反「keep it small」）。
