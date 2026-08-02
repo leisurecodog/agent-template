@@ -93,6 +93,21 @@ stateDiagram-v2
 
 - 【thread 喚醒與同步：event／mutex／queue】 ／ 單執行緒順序
 
+## Operation Example（操作實例）
+
+> 展示**實際怎麼操作這個 model**：一筆 transaction 的完整走查（輸入→狀態→輸出），
+> 以及 software 如何透過接口/register 一步步驅動。這是「怎麼用」的範例，非架構描述。
+
+```text
+例：software 寫入一筆資料
+1. 軟體對 CTRL.enable 寫 1 → model 清空並進入 ready
+2. software 發出 WRITE(address=0x8, data=0x...)
+   → model 更新 mem[word(addr)]，回 TLM_OK_RESPONSE
+3. software 讀回 0x8 → 驗證讀值 == 剛寫入值（golden 比對）
+```
+
+（此段讓驗證者知道拿它來比對的正確使用順序；無並行則明說「單執行緒順序」。）
+
 ## Assumptions / Deviations
 
 - 對真硬體的簡化 / 假設：**【至少寫一條，不空白】**
@@ -178,6 +193,23 @@ function report():
 
 ## Concurrency
 單執行緒順序執行；無 event/mutex（如 future 並行加入 point 則需定義同步）。
+
+## Operation Example
+**寫一筆資料並讀回驗證：**
+```text
+1. 軟體寫 CTRL.enable = 1
+   → tlm write(addr=0x0, data=0x1)，model 清空 mem 並進入 ready，回 OK
+2. 軟體寫 DATA = 0xA5 於位址 0x8
+   → tlm write(addr=0x8, data=0xA5)，model 存 mem[1]=0xA5，回 OK
+3. 軟體讀 DATA 於 0x8
+   → tlm read(addr=0x8) 回 0xA5 → 與剛寫值比對（golden）
+```
+
+**越界（錯誤路徑）操作：**
+```text
+軟體寫位址 0x400（超出 32-word）
+→ model 回 TLM_ADDRESS_ERROR_RESPONSE，不改任何 mem 狀態
+```
 
 ## Assumptions / Deviations
 - 簡化：不做 write-response 延遲、不做 power/clock domain。
