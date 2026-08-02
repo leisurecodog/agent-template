@@ -26,14 +26,16 @@ harness 內建的「Do not spawn agents unless the user asks」以本檔為準�
 主對話**可以自己做**的事：讀 1–3 個已知路徑的檔案、跑單一指令、小型編輯、
 與使用者對話。不要為了 30 秒的事開 agent——agent 冷啟動要重新建立 context。
 
-## 2. 派工三件套（缺一不發）
+## 2. 派工四件套（缺一不發）
 
-每個 Agent prompt 必含三段（模板見 `delegation-templates.md`）：
+每個 Agent prompt 必含四段（模板見 `delegation-templates.md`）：
 
 1. **目標與動機**：要做什麼、為什麼做（動機讓 agent 遇到邊角情況時能自行做對的取捨）。
 2. **驗收條件**：可機械檢查的完成定義。「測試 X 通過」「檔案 Y 存在且包含 Z 段落」，
    不是「做好」「弄乾淨」。
-3. **回報格式**：明確規定回什麼、不回什麼（見第 4 節）。
+3. **停止條件**：重試上限、證據門檻、換路時機——什麼情況該停手回報、不要硬撐
+   （見第 5 節與 `prompting-principles.md` 原則 4）。
+4. **回報格式**：明確規定回什麼、不回什麼（見第 4 節）。
 
 ## 3. 顯式指定 model
 
@@ -47,10 +49,13 @@ Agent tool 的 `model` 參數只接受四個值：`haiku`、`sonnet`、`opus`、
 | `opus` | 深度推理：架構取捨、sonnet 連錯兩次的難 bug、品味判斷 | 「這兩種 schema 設計選哪個，考慮未來擴充」 |
 | `fable` | 只在兩種情況：使用者明示，或升級鏈頂端（opus 也失敗，**且已先問過使用者**，見第 5 節） | 罕用，成本最高 |
 
-**effort 的誠實說明**：Agent tool 沒有 per-call 的 effort 參數。effort 由
-agent 定義檔的 frontmatter 或平台的全域 effort 設定決定。
-若需要對單一任務調 effort，只能換 model 等級來近似，或在 prompt 中
-明說「請深入推理」／「快速完成即可」。
+**effort-first、tier-second**：現代模型（Claude `effort`、OpenAI `reasoning_effort`、
+GLM `reasoning_effort`）把思考深度當成**一等旋鈕**，不是靠 prompt 硬催。需要更深的推理時，
+**先調高 effort**（agent 定義檔 frontmatter 或平台全域設定）——升 effort 比升 model 便宜；
+effort 已到頂或不支援，才換 model 等級。Agent tool 沒有 per-call 的 effort 參數，
+若要對單一任務調 effort：先調平台全域 effort，或換 model 等級。
+不要用 prompt 寫「請深入推理」／「快速完成即可」代替 effort（原則見
+`prompting-principles.md` 原則 1）。
 
 ## 4. 回報合約
 
@@ -65,6 +70,8 @@ agent 定義檔的 frontmatter 或平台的全域 effort 設定決定。
 
 ## 5. 升降級路徑
 
+- **第 0 步：先升 effort，再升 model**。需要更強推理時，先確認該 model 的
+  effort 是否已調到頂（見 §3）；還沒到頂就升 effort，不要直接跳 model 等級。
 - **haiku 錯 1 次** → 同一任務直接升 `sonnet`，不給 haiku 第二次機會。
 - **sonnet 同一子任務連錯 2 次** → 帶著**完整失敗軌跡**升 `opus`：
   原始 prompt、兩次的輸出、每次錯在哪。不要讓 opus 從零重新踩同樣的坑。

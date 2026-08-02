@@ -6,7 +6,7 @@ Claude Code 的專案起始模板：一套精簡、領域中立的工程紀律 h
 ## 內含
 
 - `CLAUDE.md` — 專案版核心指示（誠實＋來源、先計畫、驗證才說完成、動手邊界、安全底線）
-- `.claude/agent-docs/` — 判斷力 rubric、模型調度、程式規範、派工模板、制度維護協議（需要時才 Read）
+- `.claude/agent-docs/` — 判斷力 rubric、模型調度、程式規範、派工模板、prompt 設計原則、制度維護協議（需要時才 Read）
 - `.claude/rules/` — 路徑限定的語言規則（`python.md`、`c++.md`，讀到對應檔案才載入）
 - `.claude/hooks/` + `.claude/settings.json` — 自動 format／lint／secrets/push guard（工具沒裝就靜默跳過）
 - `.claude/commands/` — `update-learnings`、`consolidation-learnings`
