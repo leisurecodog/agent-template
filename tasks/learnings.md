@@ -8,7 +8,11 @@
 
 ## Mistakes to Avoid
 
+- [2026-08-02] 編輯 `.claude/rules/hardware-arch.md` / `hardware-arch-template.md` 手動搬移 section 順序時，容易只換內容不換編號（例如某次 commit 只調換「設計原因」與「Block Diagram」的內容順序，卻留下 `2.6` 排在 `2.5` 前的倒序、以及 `## 2.` 重複掛在兩節上），且兩檔（規則＋範本）順序長期不同步。改完後務必用 `grep -n '^## ' <file>` 核對兩檔標題編號完全一致、無重複、無倒序，再回報完成。
+
 ## Domain Knowledge
+
+- [2026-08-02] `git push` 在此 repo 會被 `.claude/hooks/claude-guard.sh`（PreToolUse:Bash）擋下，錯誤訊息「git push blocked: run it manually to confirm」；commit 仍可正常執行。遇到此錯誤不要重試 push，改為請使用者手動執行或明確授權。
 
 ## Open Questions
 
