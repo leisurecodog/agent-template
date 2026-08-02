@@ -29,9 +29,16 @@ block-beta
   init --> func
 ```
 
-## 2.5 Block Diagram（內部結構分解）
+## 3. 設計原因（Why / Design Rationale）
 
-展示 model 內部組成分解（sub-block／主要模組間如何連接）。單一模塊可標核心 storage／介面／邏輯。
+為什麼要這支 model／為什麼用這個行為方式／取捨：
+- 【要達成的目的：例如當 golden reference、省 simulation 時間、可執行 spec】
+- 【與真硬體/其他實作的取捨：如不做 timing 以換純行為正確、簡化後會失去什麼】
+- 【若未來可能改成什麼（已知限制）】
+
+## 2. Block Diagram（內部結構分解）
+
+展示 model 內部組成分解（sub-block／主要模組間如何連接）。單一模組可標核心 storage／介面／邏輯。
 
 ```mermaid
 block-beta
@@ -46,13 +53,6 @@ block-beta
   io_in --> core
   core --> io_out
 ```
-
-## 3. 設計原因（Why / Design Rationale）
-
-為什麼是 functional model、為什麼用這個行為方式、取捨：
-- 【要達成的目的：例如當 golden reference、省 simulation 時間、可執行 spec】
-- 【與真硬體/其他實作的取捨：如不做 timing 以換純行為正確、簡化後會失去什麼】
-- 【若未來可能改為什麼（已知限制）】
 
 ## 4. 時序圖（Transaction Sequence Diagram）
 
@@ -200,6 +200,10 @@ date: 2026-08-02
 CPU/tb 以 LT 對本 model 寫資料與讀回。model 以 32-word 記憶體為 functional state，做為
 golden 期望值來源。**不建模週期時間**（pure-functional），求快、可當 executable spec。
 
+## 3. 設計原因
+- 目的：software 的 golden reference，驗證時拿 model 期望值比對 RTL。
+- 取捨：捨 timing 換純行為、可重用於多場景；**若改用有 delay 才需描述 latency**。
+
 block diagram（內部）：
 ```mermaid
 block-beta
@@ -216,9 +220,6 @@ block-beta
   ctrl --> irq
 ```
 
-## 3. 設計原因
-- 目的：software 的 golden reference，驗證時拿 model 期望值比對 RTL。
-- 取捨：捨 timing 換純行為、可重用於多場景；**若改用有 delay 才需描述 latency**。
 ## 4. 時序圖（transaction 走查）
 
 sequenceDiagram

@@ -39,8 +39,8 @@ partition 哪些資料」定清楚：
    「仅 master、不做錯誤回復」、「不含 power」）。
 2. **Overview** — 2–3 句這個 model 提供什麼 transaction 服務、用在 golden ref／BFM／stub 哪一途，
    放系統哪個位置。附**行為層 block diagram**。
-2.5 **Block Diagram（內部結構）** — model 內部 sub-block 分解、主要模組如何連接。
 2.6 **設計原因（Why／Rationale）** — 為什麼是 functional model、行為取捨、已知限制。
+2.5 **Block Diagram（內部結構）** — model 內部 sub-block 分解、主要模組如何連接。
 2.7 **時序圖（Sequence Diagram）** — 關鍵交易 initiator↔model 走查（LT/AT），用 `sequenceDiagram`。
 3. **Flow／Decision Tree** — 「收到交易 → 條件分流 → 回什麼」的流程圖（`flowchart`／decision tree）。
    **對完全不懂的讀者這張最重要**，比偽碼親民，先給它看這張。
