@@ -7,6 +7,7 @@ https://github.com/obra/superpowers
 https://github.com/DietrichGebert/ponytail
 https://github.com/Agents365-ai/365-skills
 https://github.com/kepano/obsidian-skills
+https://github.com/multica-ai/andrej-karpathy-skills
 
 https://github.com/Graphify-Labs/graphify
 https://github.com/colbymchenry/codegraph
