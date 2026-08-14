@@ -15,6 +15,10 @@ https://github.com/microsoft/skillopt
 
 https://github.com/anthropics/claude-plugins-official
 
+## Subagents
+
+https://github.com/msitarzewski/agency-agents
+
 ## Harness
 
 https://github.com/walkinglabs/learn-harness-engineering/tree/main
