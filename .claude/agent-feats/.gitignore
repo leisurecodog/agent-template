@@ -5,5 +5,5 @@
 # omp run state
 .omo/
 
-# codegraph index
-.codegraph/
+# codegraph index (symlink -> ~/.omo/codegraph/projects)
+.codegraph
