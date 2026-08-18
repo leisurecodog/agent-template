@@ -9,5 +9,9 @@ __pycache__/
 *.pyc
 .ruff_cache/
 
+# Agent 執行狀態（per-machine）
+.omc/
+.opencode/
+
 # macOS
 .DS_Store

@@ -5,6 +5,10 @@ paths:
   - "**/*.spec.md"
   - "**/hardware/*.md"
 ---
+> **領域專屬範本（硬體工程）**：僅需要 TLM／硬體驗證文件的專案才保留本檔與
+> `.claude/rules/hardware-*.md` 家族。複製本模板成新專案時，非硬體專案請直接刪除
+> `.claude/rules/hardware-*.md`。
+>
 # TLM Functional Model 架構文件規則（模組級／單一 feature）
 
 用途：撰寫**單一模組或單一 feature 的 TLM（Transaction-Level Modeling）behavior／functional

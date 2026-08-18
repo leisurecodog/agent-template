@@ -1,3 +1,7 @@
+> **領域專屬範本（硬體工程）**：僅需要硬體驗證文件的專案才保留本檔與
+> `.claude/rules/hardware-*.md` 家族。複製本模板成新專案時，非硬體專案請直接刪除
+> `.claude/rules/hardware-*.md`。
+
 # {FEATURE_NAME} Overview
 
 > 本篇為 **feature 介紹**：讓不懂的人先懂這個 feature 在幹嘛、放哪、跟誰交握、怎麼用。

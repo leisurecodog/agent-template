@@ -80,7 +80,7 @@ printf 'last_turn="%s"\nlast_full=%s\n' "$turn_marker" "$last_full" >"$state"
 # 實際寫檔改由本 script 用 shell 直接寫到算好的路徑，路徑不再假手子行程。
 # 不用 --bare：它會停用 keychain reads 導致 claude.ai 登入失效，副作用比省下的 tokens 貴。
 if [ -n "$tasks_dir" ]; then
-	task_hint="這個互動發生在 git repo：$repo_root。repo 相關教訓的目標檔：$tasks_dir/lessons.md。"
+	task_hint="這個互動發生在 git repo：${repo_root}。repo 相關教訓的目標檔：${tasks_dir}/lessons.md。"
 else
 	task_hint="這個互動不在 git repo 內，沒有 repo 專屬 tasks 目錄，所有教訓都屬個人。"
 fi
@@ -92,7 +92,7 @@ Write/Edit 工具**，不能自己寫檔（包含你自己的 auto-memory 機制
 
 lessons-update 規範：
 - Repo-specific（只對這個 repo：程式結構、build/測試指令、坑、API、環境、特定檔案） → 該 repo 的 tasks/lessons.md（5 sections: Patterns That Work / Mistakes to Avoid / Domain Knowledge / Open Questions / Consolidated Principles；一行 - [YYYY-MM-DD] 條目；Mistakes 條必含怎麼避免再犯）。本次目標檔：$tasks_dir/lessons.md
-- Personal（跨專案：使用者偏好、工作習慣、跨 repo 環境事實、通用工作流） → 一檔一教訓，檔名 kebab-case；frontmatter 含 name、description、metadata.type(user|feedback|project|reference)；內文 Why: 與 How to apply:。目標目錄：$mem_dir（先讀 $mem_dir/MEMORY.md 與既有檔，查有否已涵蓋，有就在回覆裡給『更新後的完整內容』而非另開新檔）
+- Personal（跨專案：使用者偏好、工作習慣、跨 repo 環境事實、通用工作流） → 一檔一教訓，檔名 kebab-case；frontmatter 含 name、description、metadata.type(user|feedback|project|reference)；內文 Why: 與 How to apply:。目標目錄：${mem_dir}（先讀 $mem_dir/MEMORY.md 與既有檔，查有否已涵蓋，有就在回覆裡給『更新後的完整內容』而非另開新檔）
 
 $task_hint
 

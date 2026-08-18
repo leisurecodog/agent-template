@@ -4,6 +4,10 @@ status: Draft
 date: {YYYY-MM-DD}
 ---
 
+> **領域專屬範本（硬體工程）**：僅需要 TLM／硬體驗證文件的專案才保留本檔與
+> `.claude/rules/hardware-*.md` 家族。複製本模板成新專案時，非硬體專案請直接刪除
+> `.claude/rules/hardware-*.md`。
+
 # {MODEL_NAME} TLM Functional Model 文件
 
 > 依 `~/.claude/rules/hardware-arch.md`。**functional behavioral model 為主**，不寫 RTL
