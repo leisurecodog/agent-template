@@ -14,6 +14,7 @@ https://github.com/microsoft/skillopt
 ## Plugins
 
 https://github.com/anthropics/claude-plugins-official
+https://github.com/yeachan-heo/oh-my-claudecode
 
 ## Subagents
 
@@ -23,6 +24,7 @@ https://github.com/msitarzewski/agency-agents
 
 https://github.com/walkinglabs/learn-harness-engineering/tree/main
 https://github.com/affaan-m/ecc
+https://github.com/shareAI-lab/learn-claude-code
 
 ## tools
 
