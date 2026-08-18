@@ -1,3 +1,9 @@
 
 # opencode cache
 .opencode/
+
+# omp run state
+.omo/
+
+# codegraph index
+.codegraph/

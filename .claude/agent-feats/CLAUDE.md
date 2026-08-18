@@ -11,8 +11,9 @@
 - `sync_repos.sh`：同步腳本。讀 `sources.md`，對每個 repo：
   - 目錄不存在 → `git clone`。
   - 目錄已存在 → `git pull --ff-only`。
-  - 目標目錄命名為 `clones/{owner}-{repo}`，避免同名 repo 衝突
-    （例如 `mattpocock/skills` 與 `anthropics/skills`）。
+  - 目標目錄命名為 `clones/{class}/{repo}-{owner}`（`class` 取自 `##` 標題），
+    避免同名 repo 衝突（例如 `mattpocock/skills` 與 `anthropics/skills`）。
+  - 舊版命名 `clones/{class}/{owner}-{repo}` 與舊平面目錄存在時自動遷移。
   - 任一 repo 失敗會累計錯誤數，最後以非零 exit code 結束，不靜默吞錯。
 - `clones/`：clone 出來的 repo（不手動編輯，由腳本管理）。
 
