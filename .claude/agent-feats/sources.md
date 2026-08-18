@@ -27,7 +27,7 @@ https://github.com/yeachan-heo/oh-my-claudecode    # 次要: skills, subagent, h
 
 ## memory
 
-# 目前無成員：可考慮補 mem0 / basic-memory 等專職記憶 repo
+https://github.com/thedotmack/claude-mem
 
 ## harness
 
